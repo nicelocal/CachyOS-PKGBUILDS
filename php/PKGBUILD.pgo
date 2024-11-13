@@ -45,6 +45,8 @@ validpgpkeys=('1198C0117593497A5EC5C199286AF1F9897469DC'
               '39B641343D8C104B2B146DC3F9C39DC0B9698544'
               'E60913E4DF209907D8E30D96659A97C9CF2A795A')
 _interpreter=${pkgver%.*}
+options=('!lto')
+
 
 prepare() {
 	cd "${srcdir}/${pkgbase}-${pkgver}"
@@ -144,6 +146,7 @@ export CFLAGS+=" $CFLAGS -O3 -Ofast -falign-functions=32 -fno-semantic-interposi
 		--with-fpm-acl \
 		--with-fpm-user=http \
 		--with-fpm-group=http \
+		--enable-rtld-now \
 		--enable-embed=shared \
 		${_phpextensions}
 	make prof-gen

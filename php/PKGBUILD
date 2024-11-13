@@ -147,6 +147,7 @@ export CFLAGS+=" -fno-semantic-interposition"
 		--with-fpm-user=http \
 		--with-fpm-group=http \
 		--enable-embed=shared \
+		--enable-rtld-now \
 		${_phpextensions}
 	make
 
