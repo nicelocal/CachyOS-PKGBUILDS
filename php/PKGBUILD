@@ -29,7 +29,7 @@ makedepends=('apache' 'aspell' 'enchant' 'gd' 'gmp' 'icu' 'libsodium' 'libxslt' 
              'oniguruma')
 checkdepends=('procps-ng')
 source=("https://php.net/distributions/${pkgbase}-${pkgver}.tar.xz"{,.asc}
-        'apache.patch' 'apache.conf' 'php-fpm.patch' 'php-fpm.tmpfiles' 'php.ini.patch' 'php-cachy.patch' '0005-Enable-hugepages.patch'
+        'apache.patch' 'apache.conf' 'php-fpm.patch' 'disable-deepbind.patch' 'php-fpm.tmpfiles' 'php.ini.patch' 'php-cachy.patch' '0005-Enable-hugepages.patch'
         'https://raw.githubusercontent.com/SergiX44/php-benchmark-script/master/bench.php')
 sha256sums=('89adb978cca209124fe53fd6327bc4966ca21213a7fa2e9504f854e340873018'
             'SKIP'
@@ -56,6 +56,7 @@ prepare() {
 	patch -p0 -i "${srcdir}/php-fpm.patch"
 	patch -p0 -i "${srcdir}/php.ini.patch"
 	patch -p0 -i "${srcdir}/php-cachy.patch"
+	patch -p0 -i "${srcdir}/disable-deepbind.patch"
 	patch -Np1 -i "${srcdir}/0005-Enable-hugepages.patch"
 	autoconf
 
@@ -147,7 +148,6 @@ export CFLAGS+=" -fno-semantic-interposition"
 		--with-fpm-user=http \
 		--with-fpm-group=http \
 		--enable-embed=shared \
-		--enable-rtld-now \
 		${_phpextensions}
 	make
 
